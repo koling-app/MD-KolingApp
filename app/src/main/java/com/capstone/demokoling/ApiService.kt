@@ -8,7 +8,13 @@ interface ApiService {
     @POST("predict")
     fun postData(
         @Body request: RequestBody
-    ): Call<List<ResponseData>> // Update the return type to List<ResponseData>
+    ): Call<List<ResponseData>>
+
+    @Headers("Content-Type: application/json")
+    @POST("teks")
+    fun postDataTeks(
+        @Body request: RequestBodyText
+    ): Call<List<ResponseData>>
 }
 
 

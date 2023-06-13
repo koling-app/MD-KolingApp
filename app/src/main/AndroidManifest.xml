@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Demokoling"
         tools:targetApi="31">
-
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResultActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,9 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.capstone.demokoling.RSActivity" />
-
+        <activity android:name=".RSActivity" />
         <activity
             android:name=".PolisiActivity"
             android:exported="false" />
