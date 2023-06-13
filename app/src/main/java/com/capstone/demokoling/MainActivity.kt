@@ -187,23 +187,25 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             RESULT_SPEECH -> {
                 if (resultCode == RESULT_OK && data != null) {
                     val text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    tvText.text = text?.get(0)
 
-                    // Mendapatkan latitude dan longitude pengguna saat ini
                     fusedLocationClient.lastLocation
                         .addOnSuccessListener { location ->
                             if (location != null) {
                                 val latitude = location.latitude
                                 val longitude = location.longitude
-//                                val locatiantext = "$latitude, $longitude"
-//                                tvText.append(locatiantext)
+
+                                val intent = Intent(this@MainActivity, ResultActivity::class.java)
+                                intent.putExtra("text", text?.get(0))
+                                intent.putExtra("latitude", latitude)
+                                intent.putExtra("longitude", longitude)
+                                startActivity(intent)
                             }
                         }
                 }
             }
         }
-
-
     }
+
+
 
 }

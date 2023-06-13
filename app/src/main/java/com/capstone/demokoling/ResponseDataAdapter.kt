@@ -1,5 +1,6 @@
 package com.capstone.demokoling
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,14 @@ class ResponseDataAdapter(private var dataList: List<ResponseData>) :
 
         fun bind(data: ResponseData) {
             textLabel.text = data.KETERANGAN
-            // Bind other data fields to their respective TextViews or UI elements
+
+            itemView.setOnClickListener {
+                // Handle card click event here
+                // You can open a new activity or show a dialog to display detailed information
+                val intent = Intent(itemView.context, DetailActivity::class.java)
+                intent.putExtra("data", data)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 }
