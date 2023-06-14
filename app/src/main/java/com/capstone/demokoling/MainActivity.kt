@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import android.location.Address
 import android.location.Geocoder
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import java.util.*
 
@@ -45,9 +46,47 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.navigation_main -> {
+                    // Tampilkan Main Activity
+
+                    true
+                }
+                R.id.navigation_services -> {
+                    // Tampilkan Services Activity
+                    startActivity(Intent(this@MainActivity, ServicesActivity::class.java))
+                    true
+                }
+                R.id.navigation_upload_story -> {
+                    // Tampilkan Upload Story Activity
+                    startActivity(Intent(this@MainActivity, UploadStoryActivity::class.java))
+                    true
+                }
+                R.id.navigation_view_story -> {
+                    // Tampilkan View Story Activity
+                    startActivity(Intent(this@MainActivity, StoryActivity::class.java))
+                    true
+                }
+                R.id.navigation_account_settings -> {
+                    // Tampilkan Account Settings Activity
+                    startActivity(Intent(this@MainActivity, SettingActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
+        // Set Main Activity sebagai halaman yang aktif secara default
+        bottomNavigationView.selectedItemId = R.id.navigation_main
+
+
         val searchView = findViewById<SearchView>(R.id.searchView)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_container) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
 
         val icon1 = findViewById<ImageView>(R.id.icon1)
         val icon2 = findViewById<ImageView>(R.id.icon2)

@@ -4,6 +4,13 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
+
+    @Headers("Content-Type: application/json")
+    @POST("login")
+    fun login(
+        @Body loginRequest: LoginRequest
+    ): Call<LoginResponse>
+
     @Headers("Content-Type: application/json")
     @POST("predict")
     fun postData(
@@ -15,6 +22,12 @@ interface ApiService {
     fun postDataTeks(
         @Body request: RequestBodyText
     ): Call<List<ResponseData>>
+
+    @GET("story")
+    fun getAllStories(): Call<StoryResponse>
+
+    @GET("services")
+    fun getServices(): Call<ServicesResponse>
 }
 
 

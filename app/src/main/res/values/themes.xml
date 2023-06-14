@@ -16,4 +16,13 @@
         <item name="windowNoTitle">true</item>
 
     </style>
+
+    <style name="Theme.Demokoling.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Demokoling.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Demokoling.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
