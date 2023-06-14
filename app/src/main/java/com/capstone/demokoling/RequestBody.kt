@@ -14,10 +14,10 @@ data class ResponseData(
     @SerializedName("Label")
     val label: String?,
 
-    @SerializedName("longitude")
+    @SerializedName("Longitude")
     val longitude: Double,
 
-    @SerializedName("latitude")
+    @SerializedName("Latitude")
     val latitude: Double,
 
     @SerializedName("TLP")

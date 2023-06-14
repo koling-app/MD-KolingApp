@@ -50,13 +50,17 @@ class PolisiActivity : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 val responseDataList = response.body()
                                 responseDataList?.let {
-                                    adapter.setData(it)
-                                    adapter.notifyDataSetChanged()
+                                    Log.d("Response Size", "Size: ${responseDataList.size}")
+                                    if (it.isNotEmpty()) {
+                                        adapter.setData(it)
+                                        adapter.notifyDataSetChanged()
+                                    }
                                 }
                             } else {
                                 Log.e("API Error", "Response code: ${response.code()}")
                             }
                         }
+
 
                         override fun onFailure(call: Call<List<ResponseData>>, t: Throwable) {
                             Log.e("API Error", t.message ?: "Unknown error")

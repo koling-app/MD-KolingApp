@@ -28,6 +28,10 @@ class RSActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        adapter = ResponseDataAdapter(emptyList())
+        recyclerView.adapter = adapter
+
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         adapter = ResponseDataAdapter(emptyList())
         recyclerView.adapter = adapter
@@ -50,8 +54,11 @@ class RSActivity : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 val responseDataList = response.body()
                                 responseDataList?.let {
-                                    adapter.setData(it)
-                                    adapter.notifyDataSetChanged()
+                                    Log.d("Response Size", "Size: ${responseDataList.size}")
+                                    if (it.isNotEmpty()) {
+                                        adapter.setData(it)
+                                        adapter.notifyDataSetChanged()
+                                    }
                                 }
                             } else {
                                 Log.e("API Error", "Response code: ${response.code()}")

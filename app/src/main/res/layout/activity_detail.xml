@@ -2,50 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/map_container"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/textLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="Keterangan" />
 
     <TextView
         android:id="@+id/textId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="ID: " />
 
     <TextView
         android:id="@+id/textKeterangan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="Keterangan: " />
 
     <TextView
         android:id="@+id/textLabelDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="Label: " />
 
     <TextView
         android:id="@+id/textLongitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="Longitude: " />
 
     <TextView
         android:id="@+id/textLatitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="Latitude: " />
 
-    <TextView
-        android:id="@+id/textTlp"
+    <Button
+        android:id="@+id/buttonTlp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="TLP: "
+        android:textAllCaps="false" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="4dp">
+
+        <!-- Konten card view -->
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

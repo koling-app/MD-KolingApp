@@ -1,6 +1,7 @@
 package com.capstone.demokoling
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,9 @@ class ResponseDataAdapter(private var dataList: List<ResponseData>) :
     fun setData(newDataList: List<ResponseData>) {
         dataList = newDataList
         notifyDataSetChanged()
+        Log.d("Adapter Data Size", "Size: ${dataList.size}")
     }
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textLabel: TextView = itemView.findViewById(R.id.textLabel)
