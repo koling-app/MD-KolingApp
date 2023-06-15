@@ -133,6 +133,45 @@ data class ServiceData(
     val lon: String
 ) :Parcelable
 
+data class UploadStoryRequest(
+    @SerializedName("name") val name: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("photoUrl") val photoUrl: String,
+    @SerializedName("lan") val latitude: String,
+    @SerializedName("lon") val longitude: String
+)
+
+data class UploadStoryResponse(
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: UploadStoryData
+)
+
+data class UploadStoryData(
+    @SerializedName("name") val name: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("photoUrl") val photoUrl: String,
+    @SerializedName("lan") val latitude: String,
+    @SerializedName("lon") val longitude: String
+)
+
+data class UserResponse(
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: List<User>
+)
+
+@Parcelize
+data class User(
+    @SerializedName("id") val id: String,
+    @SerializedName("nik") val nik: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("phone") val phone: String,
+    @SerializedName("pass") val pass: String
+) : Parcelable
+
+
+
+
 
 
 

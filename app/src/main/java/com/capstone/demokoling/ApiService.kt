@@ -28,6 +28,16 @@ interface ApiService {
 
     @GET("services")
     fun getServices(): Call<ServicesResponse>
+
+    @POST("story")
+    fun uploadStory(
+        @Body request: UploadStoryRequest
+    ): Call<UploadStoryResponse>
+
+    @GET("users")
+    fun getUsers(): Call<UserResponse>
+
+
 }
 
 

@@ -15,6 +15,11 @@ object SharedPreferencesUtil {
         editor.putString(KEY_PASSWORD, password)
         editor.apply()
     }
+    fun getEmailFromSharedPreferences(context: Context): String {
+        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(KEY_EMAIL, "") ?: ""
+    }
+
 
     fun getSavedEmail(context: Context): String {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
