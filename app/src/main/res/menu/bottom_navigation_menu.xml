@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_main"
+        android:icon="@drawable/ic_main"
+        android:title="Main" />
+    <item
+        android:id="@+id/navigation_services"
+        android:icon="@drawable/ic_layanan"
+        android:title="Layanan" />
+    <item
+        android:id="@+id/navigation_upload_story"
+        android:icon="@drawable/ic_upload_story"
+        android:title="Upload Story" />
+    <item
+        android:id="@+id/navigation_view_story"
+        android:icon="@drawable/ic_view_story"
+        android:title="Lihat Story" />
+    <item
+        android:id="@+id/navigation_account_settings"
+        android:icon="@drawable/ic_account_settings"
+        android:title="Pengaturan Akun" />
+</menu>
