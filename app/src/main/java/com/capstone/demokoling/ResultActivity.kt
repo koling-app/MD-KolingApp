@@ -1,15 +1,13 @@
 package com.capstone.demokoling
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.capstone.demokoling.ResponseDataAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import retrofit2.Call
@@ -19,18 +17,12 @@ import retrofit2.Response
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var adapter: ResponseDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        adapter = ResponseDataAdapter(emptyList())
-        recyclerView.adapter = adapter
 
         if (checkLocationPermission()) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
@@ -50,8 +42,11 @@ class ResultActivity : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 val responseDataList = response.body()
                                 responseDataList?.let {
-                                    adapter.setData(it)
-                                    adapter.notifyDataSetChanged()
+                                    // Kirim data ke DetailResultActivity
+                                    val intent = Intent(this@ResultActivity, DetailResultActivity::class.java)
+                                    intent.putExtra("data", it[0]) // Anda dapat memilih elemen data yang ingin Anda kirim
+                                    startActivity(intent)
+                                    finish() // Selesai dengan ResultActivity
                                 }
                             } else {
                                 Log.e("API Error", "Response code: ${response.code()}")

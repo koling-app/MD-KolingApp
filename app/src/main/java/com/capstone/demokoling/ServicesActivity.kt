@@ -88,8 +88,12 @@ class ServicesActivity : AppCompatActivity() {
 
         val cardList = listOf(
             CardItem(R.drawable.police_image, "Polisi", PolisiActivity::class.java),
-            CardItem(R.drawable.rs_image, "Rumah Sakit", RSActivity::class.java)
+            CardItem(R.drawable.rs_image, "Rumah Sakit", RSActivity::class.java),
+            CardItem(R.drawable.damkar_image, "Damkar", DamkarActivity::class.java),
+            CardItem(R.drawable.pmi_image, "PMI", PMIActivity::class.java),
+            CardItem(R.drawable.sar_image, "SAR", SARActivity::class.java)
         )
+
 
         val adapter = CardViewAdapter(cardList)
         servicesRecyclerView.adapter = adapter

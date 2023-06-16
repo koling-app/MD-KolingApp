@@ -15,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
+    private lateinit var btnRegister: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,13 @@ class LoginActivity : AppCompatActivity() {
 
             login(email, password)
         }
+
+        btnRegister = findViewById<Button>(R.id.btnRegister)
+        btnRegister.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun login(email: String, password: String) {

@@ -1,4 +1,4 @@
-<!-- activity_login.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -19,14 +19,44 @@
         />
 
     <EditText
+        android:id="@+id/etNik"
+        android:layout_width="300dp"
+        android:layout_marginBottom="12dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_login"
+        android:padding="12dp"
+        android:hint="NIK" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_login"
+        android:padding="12dp"
+        android:hint="Name" />
+
+    <EditText
         android:id="@+id/etEmail"
         android:layout_width="300dp"
+
         android:layout_height="wrap_content"
         android:background="@drawable/bg_login"
         android:padding="12dp"
         android:hint="Email"
         android:layout_marginBottom="12dp"
         android:inputType="textEmailAddress" />
+
+
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_login"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
+        android:hint="Phone" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -37,32 +67,39 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
-
-
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="200dp"
-        android:text="Login" />
+        android:layout_marginBottom="100dp"
+        android:text="Register" />
+
+    <TextView
+        android:id="@+id/tvSuccessMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Registrasi berhasil"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Belum Punya Akun?"
+        android:text="Sudah Punya Akun?"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center_horizontal" />
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Register"
+        android:text="Login"
         android:layout_gravity="center_horizontal" />
-
 
 
 </LinearLayout>

@@ -15,14 +15,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RSActivity : AppCompatActivity() {
+class PMIActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var adapter: ResponseDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rs)
+        setContentView(R.layout.activity_pmiactivity)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -30,10 +30,7 @@ class RSActivity : AppCompatActivity() {
         adapter = ResponseDataAdapter(emptyList())
         recyclerView.adapter = adapter
 
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        adapter = ResponseDataAdapter(emptyList())
-        recyclerView.adapter = adapter
 
         if (checkLocationPermission()) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
@@ -41,7 +38,7 @@ class RSActivity : AppCompatActivity() {
                     val requestBody = RequestBody(
                         latitude = location.latitude,
                         longitude = location.longitude,
-                        label = "RS"
+                        label = "PMI"
                     )
 
                     val call = ApiClient.apiService.postData(requestBody)

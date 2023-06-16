@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Search"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="26dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        style="@style/SearchViewStyle"/>
+        style="@style/SearchViewStyle" />
+
 
 
     <androidx.cardview.widget.CardView
@@ -32,12 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="170dp" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Halo"
-            />
 
     </androidx.cardview.widget.CardView>
 
@@ -48,60 +43,47 @@
     android:id="@+id/iconSpeak"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/card_container"
+    android:layout_below="@+id/card_container"
+    android:layout_above="@+id/iconLayoutTop"
     android:orientation="horizontal"
     android:padding="16dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/koling"
             android:layout_margin="10dp"
             app:cardCornerRadius="15dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="PANIC CALL"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/tvOutput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Output suara :"
-                    android:textSize="14sp"
-                    android:layout_below="@+id/tvTitle"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/tvText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvOutput"
-                    android:layout_marginTop="5dp"
-                    android:layout_toStartOf="@+id/btnSpeak"
-                    android:text="....."
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                android:padding="15dp">
 
                 <ImageButton
                     android:id="@+id/btnSpeak"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/ic_baseline_mic_24"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"/>
+                    android:scaleType="fitCenter"
+                    android:layout_marginStart="70dp" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PANIC CALL"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_toEndOf="@id/btnSpeak"
+                    android:layout_alignTop="@id/btnSpeak"
+
+                    />
 
             </RelativeLayout>
+
 
         </androidx.cardview.widget.CardView>
 
@@ -114,7 +96,7 @@
         android:id="@+id/iconLayoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iconSpeak"
+        android:layout_above="@id/iconLayoutBottom"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -135,7 +117,7 @@
                 android:id="@+id/icon1_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Icon 1" />
+                android:text="Poliis" />
 
         </LinearLayout>
 
@@ -156,7 +138,7 @@
                 android:id="@+id/icon2_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Icon 2" />
+                android:text="Damkar" />
 
         </LinearLayout>
 
@@ -177,7 +159,7 @@
                 android:id="@+id/icon3_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Icon 3" />
+                android:text="RS" />
 
         </LinearLayout>
 
@@ -187,7 +169,7 @@
         android:id="@+id/iconLayoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iconLayoutTop"
+        android:layout_above="@id/bottom_navigation"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -208,7 +190,7 @@
                 android:id="@+id/icon4_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Icon 4" />
+                android:text="SAR" />
 
         </LinearLayout>
 
@@ -229,7 +211,7 @@
                 android:id="@+id/icon5_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Icon 5" />
+                android:text="PMI" />
 
         </LinearLayout>
 
@@ -250,7 +232,7 @@
                 android:id="@+id/icon6_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Icon 6" />
+                android:text="Selengkapnya" />
 
         </LinearLayout>
 

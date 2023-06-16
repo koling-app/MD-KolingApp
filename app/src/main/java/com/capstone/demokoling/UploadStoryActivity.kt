@@ -2,16 +2,13 @@ package com.capstone.demokoling
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,13 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.capstone.demokoling.R
 import com.capstone.demokoling.SharedPreferencesUtil.getEmailFromSharedPreferences
-import com.capstone.demokoling.UploadStoryRequest
-import com.capstone.demokoling.UploadStoryResponse
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -157,9 +154,7 @@ class UploadStoryActivity : AppCompatActivity() {
         // Load the captured photo into an ImageView
         val bitmap = decodeSampledBitmapFromFile(capturedPhotoPath, imageView.width, imageView.height)
         imageView.setImageBitmap(bitmap)
-        imageView.visibility = View.VISIBLE // Show the ImageView
     }
-
 
     private fun decodeSampledBitmapFromFile(filePath: String, reqWidth: Int, reqHeight: Int): Bitmap {
         // First decode with inJustDecodeBounds=true to check dimensions
@@ -198,19 +193,6 @@ class UploadStoryActivity : AppCompatActivity() {
             }
         }
         return inSampleSize
-    }
-
-
-    private fun saveBitmapAsJPEG(bitmap: Bitmap, photoFile: File): File? {
-        return try {
-            val outputStream = FileOutputStream(photoFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
-            outputStream.close()
-            photoFile
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
     }
 
     private fun uploadStory() {
@@ -256,19 +238,16 @@ class UploadStoryActivity : AppCompatActivity() {
 
                                     // Check if the JPEG file was successfully saved
                                     if (jpegFile != null) {
-                                        val photoUrl = jpegFile.absolutePath
-
-                                        // Proceed with uploading the story using the photoUrl, loggedInUserName, latitude, and longitude
-                                        val apiService = ApiClient.apiService
-                                        val requestBody = UploadStoryRequest(
-                                            name = loggedInUserName,
-                                            description = description,
-                                            photoUrl = photoUrl,
-                                            latitude = latitude,
-                                            longitude = longitude
+                                        // Create the MultipartBody.Part for photoUrl
+                                        val requestBody = MultipartBody.Part.createFormData(
+                                            "photoUrl",
+                                            jpegFile.name,
+                                            jpegFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
                                         )
 
-                                        apiService.uploadStory(requestBody).enqueue(object : Callback<UploadStoryResponse> {
+                                        // Proceed with uploading the story using the requestBody, loggedInUserName, latitude, and longitude
+                                        val apiService = ApiClient.apiService
+                                        apiService.uploadStory(requestBody, description).enqueue(object : Callback<UploadStoryResponse> {
                                             override fun onResponse(call: Call<UploadStoryResponse>, response: Response<UploadStoryResponse>) {
                                                 if (response.isSuccessful) {
                                                     // Story uploaded successfully
@@ -314,10 +293,32 @@ class UploadStoryActivity : AppCompatActivity() {
 
     private fun resetInputFields() {
         val descriptionEditText = findViewById<EditText>(R.id.edit_text_description)
-        val imageView = findViewById<ImageView>(R.id.image_view)
-
         descriptionEditText.text.clear()
-        capturedPhotoPath = ""
         imageView.setImageBitmap(null)
+        capturedPhotoPath = ""
+    }
+
+    private fun saveBitmapAsJPEG(bitmap: Bitmap, photoFile: File): File? {
+        return try {
+            val fos = FileOutputStream(photoFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.flush()
+            fos.close()
+            photoFile
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                capturePhoto()
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
