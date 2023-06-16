@@ -1,6 +1,5 @@
 package com.capstone.demokoling
 
-import android.app.Service
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,53 +7,37 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import java.util.ArrayList
 
-class ServicesAdapter : RecyclerView.Adapter<ServicesAdapter.ViewHolder>() {
+class ServiceAdapter(private val services: ArrayList<ServiceData>, private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
-    private val services: MutableList<ServiceData> = mutableListOf()
-    private var onItemClickListener: ((ServiceData) -> Unit)? = null
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textName: TextView = itemView.findViewById(R.id.textName)
-        private val imageAvatar: ImageView = itemView.findViewById(R.id.imageAvatar)
-        private val textPhone: TextView = itemView.findViewById(R.id.textPhone)
-
-        fun bind(service: ServiceData) {
-            textName.text = service.name
-            textPhone.text = service.phone
-
-            // Load the avatar image using a library like Picasso or Glide
-            // Example with Picasso:
-            Picasso.get().load(service.avatar).into(imageAvatar)
-
-            // Set click listener for the card view item
-            itemView.setOnClickListener {
-                onItemClickListener?.invoke(service)
-            }
-        }
+    interface OnItemClickListener {
+        fun onItemClick(service: ServiceData)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_service, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_item, parent, false)
+        return ServiceViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
         val service = services[position]
-        holder.bind(service)
+
+        Picasso.get().load(service.avatar).into(holder.avatarImageView)
+        holder.nameTextView.text = service.name
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(service)
+        }
     }
 
     override fun getItemCount(): Int {
         return services.size
     }
 
-    fun setServices(serviceList: List<ServiceData>) {
-        services.clear()
-        services.addAll(serviceList)
-        notifyDataSetChanged()
-    }
-
-    fun setOnItemClickListener(listener: (ServiceData) -> Unit) {
-        onItemClickListener = listener
+    inner class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val avatarImageView: ImageView = itemView.findViewById(R.id.avatarImageView)
+        val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
     }
 }

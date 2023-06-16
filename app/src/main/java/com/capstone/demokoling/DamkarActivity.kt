@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -15,14 +16,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RSActivity : AppCompatActivity() {
+class DamkarActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var adapter: ResponseDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rs)
+        setContentView(R.layout.activity_damkar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Menampilkan tombol kembali
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -30,10 +33,7 @@ class RSActivity : AppCompatActivity() {
         adapter = ResponseDataAdapter(emptyList())
         recyclerView.adapter = adapter
 
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        adapter = ResponseDataAdapter(emptyList())
-        recyclerView.adapter = adapter
 
         if (checkLocationPermission()) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
@@ -41,7 +41,7 @@ class RSActivity : AppCompatActivity() {
                     val requestBody = RequestBody(
                         latitude = location.latitude,
                         longitude = location.longitude,
-                        label = "RS"
+                        label = "Damkar"
                     )
 
                     val call = ApiClient.apiService.postData(requestBody)
@@ -83,6 +83,14 @@ class RSActivity : AppCompatActivity() {
     private fun checkLocationPermission(): Boolean {
         val permission = Manifest.permission.ACCESS_FINE_LOCATION
         return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed() // Kembali ke halaman sebelumnya ketika tombol kembali ditekan
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +20,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Demokoling"
         tools:targetApi="31">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"/>
+
+        <activity
+            android:name=".SearchResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SARActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PMIActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DamkarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".ServiceDetailActivity"
             android:exported="false"
@@ -47,7 +72,8 @@
             android:exported="false" />
         <activity
             android:name=".DetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.NoDemoKoling.NoActionBar" />
         <activity
             android:name=".ResultActivity"
             android:exported="false" />
@@ -68,6 +94,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAG1HY8Xoztce2-yK5vCSb_swIbAihw3zY" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.capstone.demokoling.fileprovider"
@@ -77,8 +104,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-
     </application>
 
 </manifest>

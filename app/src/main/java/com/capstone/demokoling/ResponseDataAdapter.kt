@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.demokoling.R
-import com.capstone.demokoling.ResponseData
 
 class ResponseDataAdapter(private var dataList: List<ResponseData>) :
     RecyclerView.Adapter<ResponseDataAdapter.ViewHolder>() {
@@ -34,16 +33,14 @@ class ResponseDataAdapter(private var dataList: List<ResponseData>) :
         Log.d("Adapter Data Size", "Size: ${dataList.size}")
     }
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val cardResult: CardView = itemView.findViewById(R.id.cardresult)
         private val textLabel: TextView = itemView.findViewById(R.id.textLabel)
 
         fun bind(data: ResponseData) {
             textLabel.text = data.KETERANGAN
 
-            itemView.setOnClickListener {
-                // Handle card click event here
-                // You can open a new activity or show a dialog to display detailed information
+            cardResult.setOnClickListener {
                 val intent = Intent(itemView.context, DetailActivity::class.java)
                 intent.putExtra("data", data)
                 itemView.context.startActivity(intent)

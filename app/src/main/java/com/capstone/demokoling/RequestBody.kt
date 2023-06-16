@@ -1,4 +1,5 @@
 package com.capstone.demokoling
+import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -47,6 +48,31 @@ data class RequestBodyText(
     @SerializedName("bahaya anda")
     val bahaya_anda: String,
 )
+
+data class RegisterRequest(
+    @SerializedName("nik") val nik: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("phone") val phone: String,
+    @SerializedName("pass") val password: String
+)
+
+data class RegisterResponse(
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: UserData
+)
+
+@Parcelize
+data class UserData(
+    @SerializedName("nik") val nik: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("phone") val phone: String,
+    @SerializedName("pass") val password: String
+) : Parcelable
+
+
+
 
 data class LoginResponse(
     @SerializedName("message")
@@ -171,7 +197,37 @@ data class User(
 
 
 
+data class ApiResponse(
+    val message: String,
+    val data: List<Posko>
+)
 
-
-
+@Parcelize
+data class Posko(
+    val id: String,
+    val name: String,
+    val avatar: String,
+    val phone: String,
+    val lat: String,
+    val lon: String
+) : Parcelable
+    // Implement the Parcelable interface methods
+//    override fun writeToParcel(dest: Parcel, flags: Int) {
+//        // Write your properties to the Parcel
+//    }
+//
+//    override fun describeContents(): Int {
+//        return 0
+//    }
+//
+//    companion object CREATOR : Parcelable.Creator<Posko> {
+//        override fun createFromParcel(parcel: Parcel): Posko {
+//            // Read the Parcel and create a new Posko object
+//        }
+//
+//        override fun newArray(size: Int): Array<Posko?> {
+//            return arrayOfNulls(size)
+//        }
+//    }
+//}
 

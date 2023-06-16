@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 import java.util.*
 
-class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
+class DetailResultActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -49,38 +49,31 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.d("Data", "Longitude: ${data.longitude}")
             Log.d("Data", "Latitude: ${data.latitude}")
 
-
+            val phoneNumber = data.TLP
             val buttonTlp = findViewById<Button>(R.id.buttonTlp)
             buttonTlp.text = "Telfon Sekarang"
             buttonTlp.setOnClickListener {
-                val phoneNumber = data.TLP
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
                 startActivity(intent)
             }
+
             val buttonMaps = findViewById<Button>(R.id.buttonMaps)
             buttonMaps.setOnClickListener {
-                val data = intent.getParcelableExtra<ResponseData>("data")
-                if (data != null) {
-                    val latitude = data.latitude
-                    val longitude = data.longitude
+                val latitude = data.latitude
+                val longitude = data.longitude
 
-                    val uri = "google.navigation:q=$latitude,$longitude"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                    intent.setPackage("com.google.android.apps.maps")
-                    startActivity(intent)
-                }
+                val uri = "google.navigation:q=$latitude,$longitude"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                intent.setPackage("com.google.android.apps.maps")
+                startActivity(intent)
             }
-
 
             val mapFragment = supportFragmentManager.findFragmentById(R.id.map_container) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-
-                // Jika izin lokasi sudah diberikan, ambil current location
-                getCurrentLocation()
-
+            getCurrentLocation(data)
         }
     }
 
@@ -107,26 +100,23 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun getCurrentLocation() {
+    private fun getCurrentLocation(data: ResponseData) {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
                 location?.let {
+                    val destinationLocation = Location("destination")
+                    destinationLocation.latitude = data.latitude
+                    destinationLocation.longitude = data.longitude
 
-                    val data = intent.getParcelableExtra<ResponseData>("data")
-                    if (data != null) {
-                        val destinationLocation = Location("destination")
-                        destinationLocation.latitude = data.latitude
-                        destinationLocation.longitude = data.longitude
+                    val distanceInMeters = location.distanceTo(destinationLocation)
+                    val distanceInKm = distanceInMeters / 1000
 
-                        val distanceInMeters = location.distanceTo(destinationLocation)
-                        val distanceInKm = distanceInMeters / 1000
-
-                        // Gunakan nilai distanceInKm untuk menampilkan jarak
-                        findViewById<TextView>(R.id.textJarak).text = "Jarak: $distanceInKm km"
-                    }
+                    // Gunakan nilai distanceInKm untuk menampilkan jarak
+                    findViewById<TextView>(R.id.textJarak).text = "Jarak: $distanceInKm km"
                 }
             }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressed()

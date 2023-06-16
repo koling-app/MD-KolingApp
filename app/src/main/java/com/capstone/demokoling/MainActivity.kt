@@ -22,7 +22,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import android.location.Address
 import android.location.Geocoder
+import com.capstone.demokoling.ApiClient.apiService
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 import java.util.*
 
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    private lateinit var tvText: TextView
+//    private lateinit var tvText: TextView
     private lateinit var btnSpeak: ImageButton
     private lateinit var textToSpeech: TextToSpeech
 
@@ -103,17 +107,21 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val icon6Text = findViewById<TextView>(R.id.icon6_text)
 
         // Mengatur listener untuk SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // Aksi yang diambil saat pengguna menekan tombol 'Enter' di keyboard setelah memasukkan teks pencarian
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                // Aksi yang diambil saat teks pencarian berubah
-                return false
-            }
-        })
+        searchView.queryHint = "Cari Layanan Anda"
+
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                query?.let { searchPosko(it) }
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                // You can also perform search as the text changes if desired
+//                // newText?.let { searchPosko(it) }
+//                return false
+//            }
+//        })
 
         // Mengatur listener untuk ikon layanan
         icon1.setOnClickListener {
@@ -127,7 +135,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         icon2.setOnClickListener {
-            // Aksi yang diambil saat ikon 2 diklik
+            val intent = Intent(this@MainActivity, DamkarActivity::class.java)
+            startActivity(intent)
         }
 
         icon3.setOnClickListener {
@@ -140,20 +149,26 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         icon4.setOnClickListener {
             // Aksi yang diambil saat ikon 4 diklik
+            val intent = Intent(this@MainActivity, SARActivity::class.java)
+            startActivity(intent)
         }
 
         icon5.setOnClickListener {
             // Aksi yang diambil saat ikon 5 diklik
+            val intent = Intent(this@MainActivity, PMIActivity::class.java)
+            startActivity(intent)
         }
 
         icon6.setOnClickListener {
+            val intent = Intent(this@MainActivity, ServicesActivity::class.java)
             // Aksi yang diambil saat ikon 6 diklik
+            startActivity(intent)
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         // Speech to text
-        tvText = findViewById(R.id.tvText)
+//        tvText = findViewById(R.id.tvText)
         btnSpeak = findViewById(R.id.btnSpeak)
 
         // Text to speech
@@ -166,7 +181,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
             try {
                 startActivityForResult(micGoogle, RESULT_SPEECH)
-                tvText.text = ""
+//                tvText.text = ""
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(applicationContext, "Maaf, Device Kamu Tidak Support Speech To Text", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
@@ -180,6 +195,31 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Mengatur tampilan peta di lokasi pengguna saat ini
         enableLocation()
     }
+
+    private fun searchPosko(query: String) {
+        val call: Call<ApiResponse> = apiService.searchPosko(query)
+        call.enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.isSuccessful) {
+                    val poskoList: List<Posko>? = response.body()?.data
+                    val intent = Intent(this@MainActivity, SearchResultsActivity::class.java)
+                    intent.putExtra("query", query)
+                    startActivity(intent)
+
+                    // Handle the list of posko received from the API
+                } else {
+                    // Handle API error
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                // Handle network failure
+            }
+        })
+    }
+
+
+
 
     private fun enableLocation() {
         if (ContextCompat.checkSelfPermission(

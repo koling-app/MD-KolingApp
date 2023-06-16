@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:background">@drawable/searchview_background</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingTop">2dp</item>
-        <item name="android:paddingBottom">2dp</item>
-    </style>
+        <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+                <item name="android:background">@drawable/searchview_background</item>
+                <item name="android:paddingLeft">8dp</item>
+                <item name="android:paddingRight">8dp</item>
+                <item name="android:paddingTop">2dp</item>
+                <item name="android:paddingBottom">2dp</item>
+                <item name="android:textColorHint">@color/koling</item> <!-- Tambahkan atribut ini dengan warna yang sesuai -->
+        </style>
+        <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+                <item name="android:windowBackground">@drawable/spash_koling</item>
+        </style>
+
+
 </resources>

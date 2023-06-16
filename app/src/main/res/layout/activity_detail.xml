@@ -4,28 +4,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
-    <fragment
-        android:id="@+id/map_container"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="?attr/actionBarSize"
+        android:tint="@android:color/white"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:titleTextColor="@android:color/white">
 
-    <TextView
-        android:id="@+id/textLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:text="Keterangan" />
+    </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textId"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:text="ID: " />
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_below="@id/searchView"
+        app:cardCornerRadius="10dp">
+
+        <fragment
+            android:id="@+id/map_container"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="170dp" />
+
+
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/buttonMaps"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:text="Tampilkan Google Maps "
+        android:textAllCaps="false" />
+
 
     <TextView
         android:id="@+id/textKeterangan"
@@ -33,40 +49,35 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="18sp"
-        android:text="Keterangan: " />
+        android:text="/n" />
+
 
     <TextView
-        android:id="@+id/textLabelDetail"
+        android:id="@+id/textAlamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:text="Alamat: " />
+
+    <TextView
+        android:id="@+id/textJarak"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="18sp"
         android:text="Label: " />
 
-    <TextView
-        android:id="@+id/textLongitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:text="Longitude: " />
-
-    <TextView
-        android:id="@+id/textLatitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:text="Latitude: " />
-
     <Button
         android:id="@+id/buttonTlp"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:text="TLP: "
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:text="Telfon Sekarang"
         android:textAllCaps="false" />
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
